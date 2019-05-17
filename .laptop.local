@@ -1,0 +1,22 @@
+#!/bin/sh
+
+brew bundle --file=- <<EOF
+brew "iterm2"
+brew "ansible"
+brew "awscli"
+brew "docker"
+brew "gitlab-runner"
+brew "htop"
+brew "mariadb"
+brew "terraform"
+brew "yarn"
+EOF
+
+fancy_echo "Cleaning up old Homebrew formulae ..."
+brew cleanup
+brew cask cleanup
+
+if [ -r "$HOME/.rcrc" ]; then
+  fancy_echo "Updating dotfiles ..."
+  rcup
+fi
